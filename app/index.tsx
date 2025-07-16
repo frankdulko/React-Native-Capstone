@@ -1,0 +1,20 @@
+import Header from "@/components/Header";
+import LLText from "@/components/LLText";
+import React from "react";
+import { SafeAreaView, ScrollView } from "react-native";
+
+export default function Index() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <Header />
+        <LLText size="xl" color="black">
+          Welcome to Little Lemon
+        </LLText>
+        <LLText size="md" color="secondary">
+          Your journey starts here
+        </LLText>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
