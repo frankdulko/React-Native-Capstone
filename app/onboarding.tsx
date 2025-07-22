@@ -1,12 +1,41 @@
 import LLButton from "@/components/LLButton";
 import LLText from "@/components/LLText";
-import LLTextInput from "@/components/LLTextInput";
-import React from "react";
+import LLTextInput, { hasError, Input, onChangeText, validateEmail } from "@/components/LLTextInput";
+import { setOnboardingState } from "@/constants/helpers";
+import { useAppContext } from "@/hooks/useAppContext";
+import { router } from "expo-router";
+import React, { useState } from "react";
 import { Image, SafeAreaView, StyleSheet, View } from "react-native";
 
 export default function OnboardingScreen() {
-  const [firstName, setFirstName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [firstName, setFirstName] = useState<Input>({ value: "", error: undefined });
+  const [email, setEmail] = useState<Input>({ value: "", error: undefined });
+  const { updateUserData } = useAppContext();
+
+  const handleSubmit = () => {
+    onChangeText(firstName.value, setFirstName, true);
+    onChangeText(email.value, setEmail, true, validateEmail);
+
+    if (hasError(firstName) || hasError(email)) {
+      console.log("Validation errors:", firstName.error, email.error);
+      return;
+    }
+
+    updateUserData({
+      firstName: firstName.value,
+      email: email.value,
+    })
+      .then(() => {
+        console.log("User data updated successfully");
+        router.replace("/"); // Redirect to home or another screen after onboarding
+        setOnboardingState(true) // Mark onboarding as complete
+          .then(() => console.log("Onboarding state set to true"))
+          .catch((error) => console.error("Error setting onboarding state:", error));
+      })
+      .catch((error) => {
+        console.error("Error updating user data:", error);
+      });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -20,20 +49,12 @@ export default function OnboardingScreen() {
         <LLText size="lg" color="black">
           First Name
         </LLText>
-        <LLTextInput value={firstName} onChangeText={setFirstName} />
+        <LLTextInput value={firstName.value} error={firstName.error} onChangeText={(text) => onChangeText(text, setFirstName, true)} />
         <LLText size="lg" color="black">
           Email
         </LLText>
-        <LLTextInput value={email} onChangeText={setEmail} />
-        <LLButton
-          title="Next"
-          onPress={() => {
-            // Handle next action
-            console.log("First Name:", firstName, "Email:", email);
-          }}
-          fullWidth
-          style={{ marginTop: "auto" }}
-        />
+        <LLTextInput value={email.value} error={email.error} onChangeText={(text) => onChangeText(text, setEmail, true, validateEmail)} />
+        <LLButton title="Next" onPress={handleSubmit} fullWidth style={{ marginTop: "auto" }} />
       </View>
     </SafeAreaView>
   );

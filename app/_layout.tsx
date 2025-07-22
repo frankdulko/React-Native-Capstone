@@ -1,26 +1,41 @@
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack, usePathname } from "expo-router";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
+import { getOnboardingState } from "@/constants/helpers";
+import { AppProvider } from "@/hooks/useAppContext";
+import { useEffect, useState } from "react";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [checked, setChecked] = useState(false);
+  const pathname = usePathname();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
+  useEffect(() => {
+    async function init() {
+      const didCompleteOnboarding = await getOnboardingState(); // e.g. AsyncStorage
+      if (!didCompleteOnboarding && pathname !== "/onboarding") {
+        router.replace("/onboarding");
+      }
+      setChecked(true);
+    }
+    init();
+  }, []);
+
+  if (!loaded || !checked) {
+    return null; // or your splash screen
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="profile" options={{ headerShown: false }} />
-      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <AppProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="profile" options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </AppProvider>
   );
 }
