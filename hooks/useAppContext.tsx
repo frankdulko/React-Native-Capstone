@@ -12,6 +12,7 @@ export interface UserData {
     specialOffers?: boolean;
     newsletter?: boolean;
   };
+  avatar?: string;
 }
 
 interface AppContextType {

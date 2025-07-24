@@ -49,7 +49,7 @@ const LLTextInput: React.FC<LLTextInputProps> = ({ label, error, style, ...props
   );
 };
 
-type ControlledLLTextInputProps<TFieldValues extends FieldValues> = Omit<ControllerProps<TFieldValues>, "render">;
+type ControlledLLTextInputProps<TFieldValues extends FieldValues> = Omit<ControllerProps<TFieldValues>, "render"> & TextInputProps;
 
 export function ControlledLLTextInput<TFieldValues extends FieldValues>({ name, control, rules }: ControlledLLTextInputProps<TFieldValues>) {
   return (
