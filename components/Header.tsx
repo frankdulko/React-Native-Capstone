@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ backButton = false }) => {
             pathname != "/profile" && router.push("/profile");
           }}
         >
-          {userData?.avatar ? (
+          {userData?.avatar && userData?.avatar != "" ? (
             <Image source={{ uri: userData.avatar }} style={{ width: 50, height: 50, borderRadius: 50 }} />
           ) : (
             <View style={{ width: 50, height: 50, borderRadius: 50, backgroundColor: Colors.secondary.orange }}>

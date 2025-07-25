@@ -12,34 +12,6 @@ export interface Input {
   error?: string;
 }
 
-export function onChangeText(
-  text: string,
-  setState: React.Dispatch<React.SetStateAction<Input>>,
-  required: boolean,
-  validate?: (text: string) => string | undefined
-) {
-  const error = validate ? validate(text) : undefined;
-
-  setState((prev) => ({
-    ...prev,
-    value: text,
-    error: error ?? (required ? validateRequired(text) : undefined),
-  }));
-}
-
-export function validateRequired(text: string): string | undefined {
-  return text.trim() ? undefined : "This field is required";
-}
-
-export function validateEmail(email: string): string | undefined {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email) ? undefined : "Invalid email address";
-}
-
-export function hasError(input: Input): boolean {
-  return input.error !== undefined;
-}
-
 const LLTextInput: React.FC<LLTextInputProps> = ({ label, error, style, ...props }) => {
   return (
     <View style={styles.container}>

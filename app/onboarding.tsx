@@ -1,30 +1,21 @@
 import LLButton from "@/components/LLButton";
 import LLText from "@/components/LLText";
-import LLTextInput, { hasError, Input, onChangeText, validateEmail } from "@/components/LLTextInput";
+import { ControlledLLTextInput } from "@/components/LLTextInput";
 import { setOnboardingState } from "@/constants/helpers";
-import { useAppContext } from "@/hooks/useAppContext";
+import { useAppContext, UserData } from "@/hooks/useAppContext";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { Image, SafeAreaView, StyleSheet, View } from "react-native";
 
+type OnboardingForm = Pick<UserData, "firstName" | "email">;
+
 export default function OnboardingScreen() {
-  const [firstName, setFirstName] = useState<Input>({ value: "", error: undefined });
-  const [email, setEmail] = useState<Input>({ value: "", error: undefined });
   const { updateUserData } = useAppContext();
+  const { control, handleSubmit } = useForm<OnboardingForm>({ defaultValues: { firstName: "", email: "" } });
 
-  const handleSubmit = () => {
-    onChangeText(firstName.value, setFirstName, true);
-    onChangeText(email.value, setEmail, true, validateEmail);
-
-    if (hasError(firstName) || hasError(email)) {
-      console.log("Validation errors:", firstName.error, email.error);
-      return;
-    }
-
-    updateUserData({
-      firstName: firstName.value,
-      email: email.value,
-    })
+  const submitForm = async (data: OnboardingForm) => {
+    updateUserData(data)
       .then(() => {
         console.log("User data updated successfully");
         router.replace("/"); // Redirect to home or another screen after onboarding
@@ -40,21 +31,42 @@ export default function OnboardingScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.header}>
-        <Image source={require("../assets/images/Logo.png")} resizeMode="contain" style={{ height: 65, width: "100%" }} />
+        <Image source={require("../assets/images/Logo.png")} resizeMode="contain" style={{ height: 50, width: "100%" }} />
       </View>
       <View style={styles.main}>
-        <LLText size="xl" color="black">
-          Let us get to know you
+        <LLText size="xxl" color="primary" weight="black" style={{ marginBottom: 20 }}>
+          Welcome
         </LLText>
-        <LLText size="lg" color="black">
-          First Name
+        <LLText size="xl" color="black" weight="medium" style={{ marginBottom: 20 }}>
+          Let us get to know you!
         </LLText>
-        <LLTextInput value={firstName.value} error={firstName.error} onChangeText={(text) => onChangeText(text, setFirstName, true)} />
-        <LLText size="lg" color="black">
-          Email
-        </LLText>
-        <LLTextInput value={email.value} error={email.error} onChangeText={(text) => onChangeText(text, setEmail, true, validateEmail)} />
-        <LLButton title="Next" onPress={handleSubmit} fullWidth style={{ marginTop: "auto" }} />
+        <View style={styles.container}>
+          <LLText size="sm" color="info" weight="bold" style={{ marginBottom: 8 }}>
+            First Name
+          </LLText>
+          <ControlledLLTextInput name="firstName" control={control} rules={{ required: "First name is required." }} />
+        </View>
+        <View style={styles.container}>
+          <LLText size="sm" color="info" weight="bold" style={{ marginBottom: 8 }}>
+            Email
+          </LLText>
+          <ControlledLLTextInput
+            name="email"
+            control={control}
+            rules={{
+              required: "Email is required.",
+              validate: (value, _formValues) => {
+                if (typeof value !== "string") {
+                  return "Please enter a valid email address.";
+                }
+                // at this point TypeScript knows `value` is string
+                const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
+                return emailRegex.test(value) ? true : "Please enter a valid email address.";
+              },
+            }}
+          />
+        </View>
+        <LLButton title="Next" onPress={handleSubmit(submitForm)} fullWidth style={{ marginTop: "auto" }} />
       </View>
     </SafeAreaView>
   );
@@ -65,7 +77,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    backgroundColor: "#aeaeae",
     paddingVertical: 10,
   },
   main: {
@@ -74,5 +85,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginHorizontal: 16,
     marginTop: "auto",
+  },
+  container: {
+    marginVertical: 8,
+    width: "100%",
   },
 });

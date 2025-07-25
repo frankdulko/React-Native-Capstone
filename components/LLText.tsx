@@ -3,7 +3,7 @@ import React from "react";
 import { Text as RNText, TextProps as RNTextProps, StyleProp, TextStyle } from "react-native";
 
 // Define available text sizes and color names
-export type TextSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type TextSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export type TextColor = "primary" | "secondary" | "error" | "warning" | "info" | "success" | "black" | "white";
 export type TextWeight = "thin" | "light" | "regular" | "medium" | "bold" | "black";
 
@@ -24,11 +24,12 @@ const sizeMap: Record<TextSize, number> = {
   md: 16,
   lg: 20,
   xl: 24,
+  xxl: 32,
 };
 
 // Map color keys to your design system colors
 const colorMap: Record<TextColor, string> = {
-  primary: "#6200EE",
+  primary: Colors.primary.green,
   secondary: "#03DAC6",
   error: "#B00020",
   warning: "#FBBC05",

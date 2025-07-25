@@ -43,7 +43,7 @@ export default function ProfileScreen() {
         specialOffers: userData?.notifications?.specialOffers || false,
         newsletter: userData?.notifications?.newsletter || false,
       },
-      avatar: userData?.avatar || undefined,
+      avatar: userData?.avatar || "",
     },
   });
 
@@ -75,7 +75,7 @@ export default function ProfileScreen() {
               name="avatar"
               render={({ field: { onChange, value } }) => (
                 <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
-                  {value ? (
+                  {value && value != "" ? (
                     <Image source={{ uri: value }} style={{ width: 50, height: 50, borderRadius: 50 }} />
                   ) : (
                     <View style={{ width: 50, height: 50, borderRadius: 50, backgroundColor: Colors.secondary.orange }}>
@@ -94,7 +94,7 @@ export default function ProfileScreen() {
                       }
                     }}
                   />
-                  <LLButton title={"Remove"} buttonSize="md" buttonType="secondary" onPress={() => onChange(undefined)} />
+                  <LLButton title={"Remove"} buttonSize="md" buttonType="secondary" onPress={() => onChange("")} />
                 </View>
               )}
             />
