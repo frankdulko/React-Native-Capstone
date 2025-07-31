@@ -58,8 +58,6 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    console.log("Filter selections changed:", filterSelections);
-
     (async () => {
       const activeCategories = sections.filter((s, i) => {
         // If all filters are deselected, all categories are active
@@ -68,11 +66,9 @@ export default function Index() {
         }
         return filterSelections[i];
       });
-      console.log("Active categories:", activeCategories);
       try {
         const menuItems = await filterByQueryAndCategories<MenuItem>(query, activeCategories);
         setMenuItems(menuItems);
-        console.log("Filtered menu items:", menuItems);
       } catch (e: any) {
         Alert.alert(e.message);
       }
@@ -99,7 +95,7 @@ export default function Index() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <Header />
-      <View style={{ flex: 1, backgroundColor: Colors.primary.green }}>
+      <View style={{ backgroundColor: Colors.primary.green }}>
         <View style={{ flexDirection: "row", alignItems: "center", margin: 16, gap: 16 }}>
           <View style={{ flex: 1 }}>
             <LLText size="xxl" weight="bold" style={{ color: Colors.primary.yellow }}>

@@ -12,7 +12,16 @@ type OnboardingForm = Pick<UserData, "firstName" | "email">;
 
 export default function OnboardingScreen() {
   const { updateUserData } = useAppContext();
-  const { control, handleSubmit } = useForm<OnboardingForm>({ defaultValues: { firstName: "", email: "" } });
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid },
+  } = useForm<OnboardingForm>({
+    defaultValues: { firstName: "", email: "" },
+    mode: "onChange", // run validation on every change
+    reValidateMode: "onChange",
+  });
 
   const submitForm = async (data: OnboardingForm) => {
     updateUserData(data)
@@ -28,6 +37,10 @@ export default function OnboardingScreen() {
       });
   };
 
+  const values = watch();
+
+  const buttonDisabled = !isValid || !values.firstName?.trim() || !values.email?.trim();
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.header}>
@@ -41,18 +54,19 @@ export default function OnboardingScreen() {
           Let us get to know you!
         </LLText>
         <View style={styles.container}>
-          <LLText size="sm" color="info" weight="bold" style={{ marginBottom: 8 }}>
+          <LLText size="lg" color="primary" weight="bold" style={{ marginBottom: 8 }}>
             First Name
           </LLText>
           <ControlledLLTextInput name="firstName" control={control} rules={{ required: "First name is required." }} />
         </View>
         <View style={styles.container}>
-          <LLText size="sm" color="info" weight="bold" style={{ marginBottom: 8 }}>
+          <LLText size="lg" color="primary" weight="bold" style={{ marginBottom: 8 }}>
             Email
           </LLText>
           <ControlledLLTextInput
             name="email"
             control={control}
+            keyboardType="email-address"
             rules={{
               required: "Email is required.",
               validate: (value, _formValues) => {
@@ -66,7 +80,13 @@ export default function OnboardingScreen() {
             }}
           />
         </View>
-        <LLButton title="Next" onPress={handleSubmit(submitForm)} fullWidth style={{ marginTop: "auto" }} />
+        <LLButton
+          buttonType={buttonDisabled ? "disabled" : "primary"}
+          title="Next"
+          onPress={handleSubmit(submitForm)}
+          fullWidth
+          style={{ marginTop: "auto" }}
+        />
       </View>
     </SafeAreaView>
   );

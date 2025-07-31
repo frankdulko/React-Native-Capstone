@@ -9,20 +9,22 @@ interface LLButtonProps {
   fullWidth?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
-  buttonType?: "primary" | "secondary" | "alert";
+  buttonType?: "primary" | "secondary" | "alert" | "disabled";
   buttonSize?: "sm" | "md" | "lg";
 }
 
 const TextColorMap: Record<string, TextColor> = {
   primary: "white",
   secondary: "info",
+  disabled: "white",
 };
 
 const LLButton: React.FC<LLButtonProps> = ({ title, onPress, fullWidth = false, buttonType = "primary", buttonSize = "lg", style, textStyle }) => {
+  const disabled = buttonType === "disabled";
   const buttonStyles = [styles.button, styles[buttonType], styles[buttonSize], fullWidth && styles.fullWidth, style];
 
   return (
-    <TouchableOpacity style={buttonStyles} onPress={onPress}>
+    <TouchableOpacity disabled={disabled} style={buttonStyles} onPress={onPress}>
       <LLText weight="bold" color={TextColorMap[buttonType]} size={buttonSize} style={textStyle}>
         {title}
       </LLText>
@@ -45,6 +47,10 @@ const styles = StyleSheet.create({
   },
   alert: {
     backgroundColor: Colors.primary.yellow,
+    borderRadius: 8,
+  },
+  disabled: {
+    backgroundColor: Colors.gray.medium,
     borderRadius: 8,
   },
   fullWidth: {

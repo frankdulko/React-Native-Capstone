@@ -15,7 +15,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     async function init() {
-      const didCompleteOnboarding = await getOnboardingState(); // e.g. AsyncStorage
+      const didCompleteOnboarding = await getOnboardingState();
       if (!didCompleteOnboarding && pathname !== "/onboarding") {
         router.replace("/onboarding");
       }

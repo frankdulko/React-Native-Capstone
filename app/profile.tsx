@@ -10,7 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { Alert, Image, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 
 type ProfileForm = UserData;
 
@@ -49,6 +49,7 @@ export default function ProfileScreen() {
 
   const onSubmit = async (data: ProfileForm) => {
     await updateUserData(data);
+    Alert.alert("Profile updated successfully!");
     console.log("Form submitted.");
   };
 
@@ -118,6 +119,7 @@ export default function ProfileScreen() {
             <ControlledLLTextInput
               name="email"
               control={control}
+              keyboardType="email-address"
               rules={{
                 required: "Email is required.",
                 validate: (value, _formValues) => {
@@ -135,13 +137,7 @@ export default function ProfileScreen() {
             <LLText size="sm" color="info" weight="bold" style={{ marginBottom: 8 }}>
               Phone Number
             </LLText>
-            <ControlledLLTextInput
-              name="phoneNumber"
-              control={control}
-              rules={{
-                pattern: phoneRegex,
-              }}
-            />
+            <ControlledLLTextInput name="phoneNumber" control={control} keyboardType="phone-pad" />
           </View>
           <View style={styles.container}>
             <LLText size="lg" color="black" weight="bold">

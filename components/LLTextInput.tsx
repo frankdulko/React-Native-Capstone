@@ -23,7 +23,12 @@ const LLTextInput: React.FC<LLTextInputProps> = ({ label, error, style, ...props
 
 type ControlledLLTextInputProps<TFieldValues extends FieldValues> = Omit<ControllerProps<TFieldValues>, "render"> & TextInputProps;
 
-export function ControlledLLTextInput<TFieldValues extends FieldValues>({ name, control, rules }: ControlledLLTextInputProps<TFieldValues>) {
+export function ControlledLLTextInput<TFieldValues extends FieldValues>({
+  name,
+  control,
+  rules,
+  keyboardType,
+}: ControlledLLTextInputProps<TFieldValues>) {
   return (
     <Controller
       name={name}
@@ -31,7 +36,7 @@ export function ControlledLLTextInput<TFieldValues extends FieldValues>({ name, 
       rules={rules}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <View style={styles.container}>
-          <TextInput style={[styles.input, error ? styles.errorInput : null]} value={value} onChangeText={onChange} />
+          <TextInput style={[styles.input, error ? styles.errorInput : null]} value={value} onChangeText={onChange} keyboardType={keyboardType} />
           {error && <Text style={styles.errorText}>{error.message}</Text>}
         </View>
       )}

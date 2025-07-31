@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ backButton = false }) => {
   const { userData } = useAppContext();
   const pathname = usePathname();
   return (
-    <View style={{ flexDirection: "row", height: 50, marginHorizontal: 16 }}>
+    <View style={{ flexDirection: "row", marginHorizontal: 16, marginBottom: 16 }}>
       <View style={{ flex: 1 }}>
         {backButton && (
           <IconButton
