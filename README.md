@@ -30,7 +30,10 @@ The app enables customers to seamlessly browse the Little Lemon restaurant menu 
 
 ---
 
-## 📸 Screenshots  
+## 📸 Screenshots
+| Onboarding | Home | Profile |
+| --- | --- | --- |
+| <img width="1179" height="2556" alt="Simulator Screenshot - iPhone 15 Pro - 2025-09-03 at 13 26 19" src="https://github.com/user-attachments/assets/09ea8fd0-5a2f-4597-a9f8-73b7886040cb" /> | <img width="1179" height="2556" alt="Simulator Screenshot - iPhone 15 Pro - 2025-09-03 at 13 25 39" src="https://github.com/user-attachments/assets/e2be9dc2-a356-46d5-affe-8a75db1e4966" /> |<img width="1179" height="2556" alt="Simulator Screenshot - iPhone 15 Pro - 2025-09-03 at 13 25 56" src="https://github.com/user-attachments/assets/1621effb-fb83-4fa4-afe6-b1d201c105ee" />|
 
 ---
 
@@ -44,7 +47,7 @@ The app enables customers to seamlessly browse the Little Lemon restaurant menu 
 ### Installation  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/yourusername/little-lemon-app.git
+   git clone https://github.com/frankdulko/React-Native-Capstone.git
    cd React-Native-Capstone
 2. Install dependencies:  
    ```bash
