@@ -1,51 +1,74 @@
-# Welcome to your Expo app 👋
+# Little Lemon Food Ordering App  
+Capstone Project — Meta React Native Specialization  
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 📖 Overview  
+The **Little Lemon Food Ordering App** is a mobile application built with **React Native** as the capstone project for the [Meta React Native Specialization](https://www.coursera.org/specializations/meta-react-native).  
+The app enables customers to seamlessly browse the Little Lemon restaurant menu and personalize their profile through an intuitive and polished mobile experience.  
 
-## Get started
+---
 
-1. Install dependencies
+## ✨ Features  
+- **Onboarding Flow**: Collects user details (name, email) and persists data across sessions.  
+- **Profile Management**: Editable profile screen with saved changes retained on restart.  
+- **Data Integration**: Fetches live menu data from a remote API.  
+- **Local Storage**: Stores menu data in **SQLite** for offline resilience.  
+- **Filtering**: Allows users to filter menu items by category.  
+- **UI/UX Design**: Wireframes and prototypes created in **Figma** with brand-consistent components.  
 
+---
+
+## 🛠️ Tech Stack  
+- **Frameworks & Libraries**:  
+  - [React Native](https://reactnative.dev/)  
+  - [Expo](https://expo.dev/)  
+  - [React Navigation](https://reactnavigation.org/)  
+  - [SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/)  
+
+- **Tools**:  
+  - Figma (wireframes & prototypes)  
+  - Git & GitHub (version control)  
+
+---
+
+## 📸 Screenshots  
+
+---
+
+## 🚀 Getting Started  
+
+### Prerequisites  
+- [Node.js](https://nodejs.org/) (LTS recommended)  
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)  
+- Git  
+
+### Installation  
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/yourusername/little-lemon-app.git
+   cd little-lemon-app
+2. Install dependencies:  
    ```bash
    npm install
-   ```
-
-2. Start the app
-
+3. Start the Expo development server:
    ```bash
    npx expo start
-   ```
+4. Run the app:
+   - Use the Expo Go app on your device (scan the QR code).
+   - Or run on an emulator/simulator.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📚 Learning Outcomes
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+This project demonstrates:
+   - Setting up and structuring a React Native environment.
+   - Applying UX/UI design principles to mobile development.
+   - Implementing onboarding and profile management flows.
+   - Integrating remote APIs and local databases.
+   - Managing navigation patterns in React Native.
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 🏆 Acknowledgments
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# React-Native-Capstone
+This project was created as part of the Meta React Native Specialization on Coursera.
