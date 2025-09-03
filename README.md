@@ -45,7 +45,7 @@ The app enables customers to seamlessly browse the Little Lemon restaurant menu 
 1. Clone the repository:  
    ```bash
    git clone https://github.com/yourusername/little-lemon-app.git
-   cd little-lemon-app
+   cd React-Native-Capstone
 2. Install dependencies:  
    ```bash
    npm install
